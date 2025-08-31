@@ -228,10 +228,10 @@ export default function Home() {
                 <div className="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center mb-4">
                   <Info className="text-black text-xl" />
                 </div>
-                <h3 className="text-2xl font-bold gradient-text mb-4" data-testid="about-title">About Nothing ROM Hub</h3>
+                <h3 className="text-2xl font-bold gradient-text mb-4" data-testid="about-title">About NeXT-Gen</h3>
               </div>
               <p className="text-muted-foreground leading-relaxed mb-6" data-testid="about-description">
-                Nothing ROM Hub is the ultimate destination for custom Android ROMs designed specifically for Nothing Phone 2a and 2a Plus devices. Our community-driven platform connects developers and users, providing a curated collection of stable, tested, and regularly updated custom ROMs.
+                NeXT-Gen is the ultimate destination for custom Android ROMs designed specifically for Nothing Phone 2a and 2a Plus devices. Our community-driven platform connects developers and users, providing a curated collection of stable, tested, and regularly updated custom ROMs.
               </p>
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
