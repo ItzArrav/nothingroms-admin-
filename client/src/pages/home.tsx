@@ -62,8 +62,6 @@ export default function Home() {
                 📤 Submit ROM
               </Button>
             </div>
-            
-            <SearchFilters />
           </motion.div>
         </div>
       </section>
