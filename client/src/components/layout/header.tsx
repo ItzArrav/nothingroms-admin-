@@ -10,13 +10,14 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSubmitROM = () => {
-    window.open("https://forms.google.com/your-rom-submission-form", "_blank");
+    window.open("https://forms.gle/YourActualFormID", "_blank");
   };
 
   const navItems = [
     { href: "/", label: "Home" },
     { href: "/roms", label: "ROMs" },
     { href: "/community", label: "Community" },
+    { href: "/submit", label: "Submit ROM" },
   ];
 
   const NavLinks = ({ mobile = false, onClose = () => {} }) => (
@@ -37,16 +38,6 @@ export default function Header() {
           </span>
         </Link>
       ))}
-      <Button 
-        className="bg-accent text-accent-foreground hover:bg-accent/90"
-        onClick={() => {
-          handleSubmitROM();
-          onClose();
-        }}
-        data-testid="submit-rom-button"
-      >
-        Submit ROM
-      </Button>
     </div>
   );
 

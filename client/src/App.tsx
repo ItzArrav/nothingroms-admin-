@@ -8,6 +8,7 @@ import Home from "@/pages/home";
 import Roms from "@/pages/roms";
 import RomDetail from "@/pages/rom-detail";
 import Community from "@/pages/community";
+import SubmitRom from "@/pages/submit-rom";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 
@@ -21,6 +22,7 @@ function Router() {
           <Route path="/roms" component={Roms} />
           <Route path="/roms/:id" component={RomDetail} />
           <Route path="/community" component={Community} />
+          <Route path="/submit" component={SubmitRom} />
           <Route component={NotFound} />
         </Switch>
       </main>

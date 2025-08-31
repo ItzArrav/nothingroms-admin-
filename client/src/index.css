@@ -93,6 +93,13 @@
   .animate-slideUp {
     animation: slideUp 0.6s ease-out;
   }
+  
+  .line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
 }
 
 @keyframes glow {
