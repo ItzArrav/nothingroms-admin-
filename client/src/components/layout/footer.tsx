@@ -11,7 +11,7 @@ export default function Footer() {
               <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
                 <Smartphone className="text-black" size={16} />
               </div>
-              <span className="text-xl font-bold gradient-text" data-testid="footer-logo">CurseROMforge</span>
+              <span className="text-xl font-bold gradient-text" data-testid="footer-logo">NeXT-Gen</span>
             </div>
             <p className="text-muted-foreground mb-6 max-w-md" data-testid="footer-description">
               The ultimate destination for Nothing Phone 2a/2a Plus custom ROMs. 
