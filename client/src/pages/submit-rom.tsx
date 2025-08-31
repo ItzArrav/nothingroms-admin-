@@ -78,62 +78,52 @@ export default function SubmitRom() {
             </Card>
           </motion.div>
 
-          {/* Terminal */}
+          {/* Requirements */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <Card className="glass-card h-full bg-black/80 border-green-500/30">
+            <Card className="glass-card h-full">
               <CardHeader>
                 <div className="flex items-center gap-3 mb-2">
-                  <div className="flex gap-2">
-                    <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                    <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                  <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg flex items-center justify-center">
+                    <FileCheck className="text-white" size={20} />
                   </div>
-                  <CardTitle className="text-green-400 font-mono text-sm">Terminal</CardTitle>
+                  <CardTitle className="gradient-text">Requirements</CardTitle>
                 </div>
+                <Badge variant="outline" className="w-fit border-orange-500 text-orange-400">Mandatory</Badge>
               </CardHeader>
-              <CardContent className="bg-black/50 rounded-lg p-4 font-mono text-sm">
-                <div className="space-y-2">
-                  <div className="text-green-400">
-                    <span className="text-blue-400">user@pacman</span>
-                    <span className="text-white">:</span>
-                    <span className="text-yellow-400">~$</span>
-                    <span className="text-white ml-2">adb devices</span>
-                  </div>
-                  <div className="text-gray-300">List of devices attached</div>
-                  <div className="text-gray-300">aabbccddeecc    device</div>
-                  
-                  <div className="text-green-400 mt-4">
-                    <span className="text-blue-400">user@pacman</span>
-                    <span className="text-white">:</span>
-                    <span className="text-yellow-400">~$</span>
-                    <span className="text-white ml-2">adb reboot fastboot</span>
-                  </div>
-                  
-                  <div className="text-green-400 mt-4">
-                    <span className="text-blue-400">user@pacman</span>
-                    <span className="text-white">:</span>
-                    <span className="text-yellow-400">~$</span>
-                    <span className="text-white ml-2">fastboot devices</span>
-                  </div>
-                  <div className="text-gray-300">aabbccddeecc    fastboot</div>
-                  
-                  <div className="text-green-400 mt-4">
-                    <span className="text-blue-400">user@pacman</span>
-                    <span className="text-white">:</span>
-                    <span className="text-yellow-400">~$</span>
-                    <span className="text-white ml-2">fastboot getvar all</span>
-                  </div>
-                  <div className="text-gray-300">(bootloader) version-bootloader: unknown</div>
-                  <div className="text-gray-300">(bootloader) version-baseband: unknown</div>
-                  <div className="text-gray-300">(bootloader) serialno: aabbccddeecc</div>
-                  <div className="text-gray-300 mt-2">
-                    <span className="text-green-500">✓</span>
-                    <span className="ml-2">Device ready for flashing</span>
-                  </div>
+              <CardContent>
+                <p className="text-muted-foreground mb-6">
+                  Your ROM must meet these requirements before submission.
+                </p>
+                <ul className="space-y-2 mb-6 text-sm">
+                  <li className="flex items-start gap-2">
+                    <span className="text-accent">•</span>
+                    <span>Compatible with Nothing Phone 2a/2a Plus</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-accent">•</span>
+                    <span>Working basic functionality (calls, SMS, WiFi)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-accent">•</span>
+                    <span>SHA256 checksum verification</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-accent">•</span>
+                    <span>No malware or tracking software</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-accent">•</span>
+                    <span>Clear installation instructions</span>
+                  </li>
+                </ul>
+                <div className="p-3 bg-orange-500/10 border border-orange-500/20 rounded-lg">
+                  <p className="text-xs text-orange-400">
+                    ⚠️ ROMs that don't meet these requirements will be rejected during review.
+                  </p>
                 </div>
               </CardContent>
             </Card>
