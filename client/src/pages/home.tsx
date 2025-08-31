@@ -40,7 +40,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
               <Button 
                 className="bg-accent text-accent-foreground hover:bg-accent/90 px-8 py-3 text-lg"
-                onClick={() => window.open("/installation-guide", "_blank")}
+                onClick={() => window.location.href = "/installation-guide"}
                 data-testid="installation-guide-btn"
               >
                 📋 Installation Guide

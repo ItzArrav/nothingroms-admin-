@@ -16,6 +16,7 @@ export default function Header() {
   const navItems = [
     { href: "/", label: "Home" },
     { href: "/roms", label: "ROMs" },
+    { href: "/installation-guide", label: "Installation Guide" },
     { href: "/community", label: "Community" },
     { href: "/submit", label: "Submit ROM" },
   ];
