@@ -9,9 +9,6 @@ export default function SubmitRom() {
     window.open("https://forms.gle/YourActualFormID", "_blank");
   };
 
-  const openDeveloperApplication = () => {
-    window.open("https://forms.gle/YourDeveloperApplicationFormID", "_blank");
-  };
 
   return (
     <div className="min-h-screen py-16 px-4">
@@ -81,53 +78,63 @@ export default function SubmitRom() {
             </Card>
           </motion.div>
 
-          {/* Become Developer */}
+          {/* Terminal */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <Card className="glass-card h-full">
+            <Card className="glass-card h-full bg-black/80 border-green-500/30">
               <CardHeader>
                 <div className="flex items-center gap-3 mb-2">
-                  <div className="w-10 h-10 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-lg flex items-center justify-center">
-                    <Users className="text-white" size={20} />
+                  <div className="flex gap-2">
+                    <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                    <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
                   </div>
-                  <CardTitle className="gradient-text">Become Developer</CardTitle>
+                  <CardTitle className="text-green-400 font-mono text-sm">Terminal</CardTitle>
                 </div>
-                <Badge variant="outline" className="w-fit border-secondary text-secondary">New Contributors</Badge>
               </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-6">
-                  New to ROM development? Apply to join our verified developer program.
-                </p>
-                <ul className="space-y-2 mb-6 text-sm">
-                  <li className="flex items-start gap-2">
-                    <span className="text-accent">•</span>
-                    <span>GitHub profile and experience</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-accent">•</span>
-                    <span>Previous ROM development work</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-accent">•</span>
-                    <span>Device ownership verification</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-accent">•</span>
-                    <span>Community references</span>
-                  </li>
-                </ul>
-                <Button 
-                  variant="outline"
-                  className="w-full border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground"
-                  onClick={openDeveloperApplication}
-                  data-testid="apply-developer"
-                >
-                  Apply as Developer
-                  <ExternalLink className="ml-2" size={16} />
-                </Button>
+              <CardContent className="bg-black/50 rounded-lg p-4 font-mono text-sm">
+                <div className="space-y-2">
+                  <div className="text-green-400">
+                    <span className="text-blue-400">user@pacman</span>
+                    <span className="text-white">:</span>
+                    <span className="text-yellow-400">~$</span>
+                    <span className="text-white ml-2">adb devices</span>
+                  </div>
+                  <div className="text-gray-300">List of devices attached</div>
+                  <div className="text-gray-300">aabbccddeecc    device</div>
+                  
+                  <div className="text-green-400 mt-4">
+                    <span className="text-blue-400">user@pacman</span>
+                    <span className="text-white">:</span>
+                    <span className="text-yellow-400">~$</span>
+                    <span className="text-white ml-2">adb reboot fastboot</span>
+                  </div>
+                  
+                  <div className="text-green-400 mt-4">
+                    <span className="text-blue-400">user@pacman</span>
+                    <span className="text-white">:</span>
+                    <span className="text-yellow-400">~$</span>
+                    <span className="text-white ml-2">fastboot devices</span>
+                  </div>
+                  <div className="text-gray-300">aabbccddeecc    fastboot</div>
+                  
+                  <div className="text-green-400 mt-4">
+                    <span className="text-blue-400">user@pacman</span>
+                    <span className="text-white">:</span>
+                    <span className="text-yellow-400">~$</span>
+                    <span className="text-white ml-2">fastboot getvar all</span>
+                  </div>
+                  <div className="text-gray-300">(bootloader) version-bootloader: unknown</div>
+                  <div className="text-gray-300">(bootloader) version-baseband: unknown</div>
+                  <div className="text-gray-300">(bootloader) serialno: aabbccddeecc</div>
+                  <div className="text-gray-300 mt-2">
+                    <span className="text-green-500">✓</span>
+                    <span className="ml-2">Device ready for flashing</span>
+                  </div>
+                </div>
               </CardContent>
             </Card>
           </motion.div>
