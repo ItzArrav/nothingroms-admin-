@@ -58,7 +58,7 @@ export default function Header() {
                 <Smartphone className="text-black" size={16} />
               </div>
               <span className="text-xl font-bold gradient-text" data-testid="site-title">
-                Nothing ROM Hub
+                CurseROMforge
               </span>
             </div>
           </Link>
@@ -85,7 +85,7 @@ export default function Header() {
                   <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
                     <Smartphone className="text-black" size={16} />
                   </div>
-                  <span className="text-xl font-bold gradient-text">Nothing ROM Hub</span>
+                  <span className="text-xl font-bold gradient-text">CurseROMforge</span>
                 </div>
                 <NavLinks mobile onClose={() => setIsOpen(false)} />
               </div>

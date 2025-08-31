@@ -3,29 +3,17 @@ import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { type Rom } from "@shared/schema";
 import RomCard from "@/components/rom-card";
-import SearchFilters from "@/components/search-filters";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export default function Roms() {
   const [sortBy, setSortBy] = useState("latest");
-  const [searchQuery, setSearchQuery] = useState("");
-  const [filters, setFilters] = useState({
-    androidVersion: "all",
-    romType: "all",
-    maintainer: "",
-  });
 
   const { data: allRoms, isLoading } = useQuery<Rom[]>({
     queryKey: ["/api/roms"],
   });
 
-  const { data: searchResults } = useQuery<Rom[]>({
-    queryKey: ["/api/roms/search", searchQuery],
-    enabled: !!searchQuery,
-  });
-
-  const displayRoms = searchQuery ? searchResults : allRoms;
+  const displayRoms = allRoms;
 
   const sortedRoms = displayRoms?.sort((a, b) => {
     switch (sortBy) {
@@ -50,10 +38,6 @@ export default function Roms() {
           </p>
         </div>
 
-        {/* Search and Filters */}
-        <div className="mb-8">
-          <SearchFilters onSearch={setSearchQuery} onFilter={setFilters} />
-        </div>
 
         {/* Sort Options */}
         <div className="flex items-center justify-between mb-8">
