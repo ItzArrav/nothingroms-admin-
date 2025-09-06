@@ -13,8 +13,8 @@ export default function Home() {
   });
 
   const handleSubmitROM = () => {
-    // Open Google Form for ROM submission
-    window.open("https://forms.gle/YourActualFormID", "_blank");
+    // Navigate to internal ROM submission form
+    window.location.href = "/submit";
   };
 
   return (
