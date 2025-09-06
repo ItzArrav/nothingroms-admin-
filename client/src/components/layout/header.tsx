@@ -9,9 +9,6 @@ export default function Header() {
   const [location] = useLocation();
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleSubmitROM = () => {
-    window.open("https://forms.gle/YourActualFormID", "_blank");
-  };
 
   const navItems = [
     { href: "/", label: "Home" },
@@ -19,6 +16,7 @@ export default function Header() {
     { href: "/installation-guide", label: "Installation Guide" },
     { href: "/community", label: "Community" },
     { href: "/submit", label: "Submit ROM" },
+    { href: "/developer/login", label: "Developers" },
   ];
 
   const NavLinks = ({ mobile = false, onClose = () => {} }) => (

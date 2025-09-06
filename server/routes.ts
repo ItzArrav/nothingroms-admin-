@@ -1,14 +1,25 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
-import { storage } from "./storage";
+import { database } from "./database";
 import { insertRomSchema } from "@shared/schema";
 import { z } from "zod";
+import { registerAuthRoutes } from "./routes/auth";
+import { registerUploadRoutes } from "./routes/upload";
+import { registerAdminRoutes } from "./routes/admin";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Register authentication routes
+  registerAuthRoutes(app);
+  
+  // Register upload routes
+  registerUploadRoutes(app);
+  
+  // Register admin routes
+  registerAdminRoutes(app);
   // Get all approved ROMs
   app.get("/api/roms", async (req, res) => {
     try {
-      const roms = await storage.getApprovedRoms();
+      const roms = database.getApprovedRoms();
       res.json(roms);
     } catch (error) {
       res.status(500).json({ message: "Failed to fetch ROMs" });
@@ -18,7 +29,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Get featured ROMs (top 3 by download count)
   app.get("/api/roms/featured", async (req, res) => {
     try {
-      const roms = await storage.getApprovedRoms();
+      const roms = database.getApprovedRoms();
       const featured = roms
         .sort((a, b) => b.downloadCount - a.downloadCount)
         .slice(0, 3);
@@ -31,7 +42,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Get ROM by ID
   app.get("/api/roms/:id", async (req, res) => {
     try {
-      const rom = await storage.getRomById(req.params.id);
+      const rom = database.getRomById(req.params.id);
       if (!rom) {
         return res.status(404).json({ message: "ROM not found" });
       }
@@ -65,12 +76,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Download ROM (increment counter)
   app.post("/api/roms/:id/download", async (req, res) => {
     try {
-      const rom = await storage.getRomById(req.params.id);
+      const rom = database.getRomById(req.params.id);
       if (!rom) {
         return res.status(404).json({ message: "ROM not found" });
       }
       
-      await storage.incrementDownloadCount(req.params.id);
+      database.incrementDownloadCount(req.params.id);
       res.json({ message: "Download tracked", downloadUrl: rom.downloadUrl });
     } catch (error) {
       res.status(500).json({ message: "Failed to track download" });

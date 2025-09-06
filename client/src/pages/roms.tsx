@@ -5,15 +5,51 @@ import { type Rom } from "@shared/schema";
 import RomCard from "@/components/rom-card";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { FaShieldAlt, FaEye, FaEyeSlash } from "react-icons/fa";
+
+interface RomWithStatus extends Rom {
+  approvalStatus?: 'approved' | 'pending';
+  isPublic?: boolean;
+}
 
 export default function Roms() {
   const [sortBy, setSortBy] = useState("latest");
+  const [showAll, setShowAll] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
-  const { data: allRoms, isLoading } = useQuery<Rom[]>({
+  // Check if user is admin
+  useEffect(() => {
+    const token = localStorage.getItem('admin_token') || localStorage.getItem('dev_token');
+    if (token) {
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        setIsAdmin(Boolean(payload.isAdmin));
+      } catch (e) {
+        setIsAdmin(false);
+      }
+    }
+  }, []);
+
+  // Fetch ROMs based on admin status and show all toggle
+  const { data: publicRoms, isLoading: publicLoading } = useQuery<Rom[]>({
     queryKey: ["/api/roms"],
+    enabled: !showAll || !isAdmin,
   });
 
-  const displayRoms = allRoms;
+  const { data: adminRomsData, isLoading: adminLoading } = useQuery<{
+    roms: RomWithStatus[];
+    totalCount: number;
+    approvedCount: number;
+    pendingCount: number;
+  }>({
+    queryKey: ["/api/admin/roms/all"],
+    enabled: isAdmin && showAll,
+  });
+
+  const displayRoms = showAll && isAdmin ? adminRomsData?.roms : publicRoms;
+  const isLoading = showAll && isAdmin ? adminLoading : publicLoading;
 
   const sortedRoms = displayRoms?.sort((a, b) => {
     switch (sortBy) {
@@ -32,10 +68,48 @@ export default function Roms() {
       <div className="container mx-auto max-w-6xl">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold gradient-text mb-4" data-testid="roms-page-title">All ROMs</h1>
-          <p className="text-muted-foreground" data-testid="roms-page-description">
-            Browse our complete collection of custom ROMs for Nothing Phone 2a and 2a Plus
+          <div className="flex items-center gap-3 mb-4">
+            <h1 className="text-4xl font-bold gradient-text" data-testid="roms-page-title">
+              {showAll && isAdmin ? 'All ROMs (Admin View)' : 'All ROMs'}
+            </h1>
+            {isAdmin && (
+              <Badge className="bg-purple-500/20 text-purple-300 border-purple-500/30">
+                <FaShieldAlt className="mr-1" size={12} />
+                Admin
+              </Badge>
+            )}
+          </div>
+          <p className="text-muted-foreground mb-4" data-testid="roms-page-description">
+            {showAll && isAdmin 
+              ? 'Admin view: Browse all ROMs including pending approvals'
+              : 'Browse our complete collection of custom ROMs for Nothing Phone 2a and 2a Plus'
+            }
           </p>
+          
+          {/* Admin Toggle */}
+          {isAdmin && (
+            <div className="flex items-center gap-4">
+              <Button
+                onClick={() => setShowAll(!showAll)}
+                variant={showAll ? "default" : "outline"}
+                className={showAll ? "bg-purple-600 hover:bg-purple-700" : ""}
+              >
+                {showAll ? (
+                  <><FaEye className="mr-2" size={14} />Show All ROMs</>
+                ) : (
+                  <><FaEyeSlash className="mr-2" size={14} />Show Public Only</>
+                )}
+              </Button>
+              
+              {showAll && adminRomsData && (
+                <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                  <span>Total: {adminRomsData.totalCount}</span>
+                  <span className="text-green-400">Approved: {adminRomsData.approvedCount}</span>
+                  <span className="text-yellow-400">Pending: {adminRomsData.pendingCount}</span>
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
 

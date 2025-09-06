@@ -2,11 +2,19 @@ import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink, Upload, FileCheck, Users, Clock } from "lucide-react";
+import { ExternalLink, Upload, FileCheck, Users, Clock, UserPlus } from "lucide-react";
+import { Link } from "wouter";
 
 export default function SubmitRom() {
-  const openSubmissionForm = () => {
-    window.open("https://forms.gle/YourActualFormID", "_blank");
+  // Check if user is logged in
+  const isLoggedIn = localStorage.getItem('dev_token');
+  
+  const getSubmissionText = () => {
+    return isLoggedIn ? "Go to Developer Dashboard" : "Register as Developer";
+  };
+  
+  const getSubmissionLink = () => {
+    return isLoggedIn ? "/developer/dashboard" : "/developer/register";
   };
 
 
@@ -22,7 +30,7 @@ export default function SubmitRom() {
         >
           <h1 className="text-4xl font-bold gradient-text mb-4" data-testid="submit-rom-title">Submit Your ROM</h1>
           <p className="text-muted-foreground max-w-2xl mx-auto" data-testid="submit-rom-description">
-            Share your custom ROM with the Nothing Phone community. All submissions are reviewed by our team before being published.
+            Share your custom ROM with the Nothing Phone community. Register as a developer to upload ROMs directly with our new upload system. All submissions are reviewed before being published.
           </p>
         </motion.div>
 
@@ -46,7 +54,9 @@ export default function SubmitRom() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground mb-6">
-                  Already a verified developer? Submit your ROM directly through our Google Form.
+                  {isLoggedIn 
+                    ? "You're logged in as a developer! Go to your dashboard to upload and manage ROMs." 
+                    : "Want to share your ROM? Register as a developer to get access to our upload system."}
                 </p>
                 <ul className="space-y-2 mb-6 text-sm">
                   <li className="flex items-start gap-2">
@@ -66,14 +76,15 @@ export default function SubmitRom() {
                     <span>Detailed changelog</span>
                   </li>
                 </ul>
-                <Button 
-                  className="w-full bg-accent text-accent-foreground hover:bg-accent/90"
-                  onClick={openSubmissionForm}
-                  data-testid="submit-rom-form"
-                >
-                  Submit ROM
-                  <ExternalLink className="ml-2" size={16} />
-                </Button>
+                <Link href={getSubmissionLink()}>
+                  <Button 
+                    className="w-full bg-accent text-accent-foreground hover:bg-accent/90"
+                    data-testid="submit-rom-form"
+                  >
+                    {getSubmissionText()}
+                    {isLoggedIn ? <Upload className="ml-2" size={16} /> : <UserPlus className="ml-2" size={16} />}
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
           </motion.div>
@@ -109,7 +120,7 @@ export default function SubmitRom() {
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-accent">•</span>
-                    <span>SHA256 checksum verification</span>
+                    <span>Stable and tested build</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-accent">•</span>
@@ -146,9 +157,9 @@ export default function SubmitRom() {
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
                     <Upload className="text-white" size={20} />
                   </div>
-                  <h4 className="font-semibold text-foreground mb-2">1. Submit Form</h4>
+                  <h4 className="font-semibold text-foreground mb-2">1. Register</h4>
                   <p className="text-sm text-muted-foreground">
-                    Fill out the Google Form with ROM details and download links
+                    Create a developer account with your details and credentials
                   </p>
                 </div>
                 
@@ -156,9 +167,9 @@ export default function SubmitRom() {
                   <div className="w-12 h-12 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-3">
                     <FileCheck className="text-white" size={20} />
                   </div>
-                  <h4 className="font-semibold text-foreground mb-2">2. Auto-Save</h4>
+                  <h4 className="font-semibold text-foreground mb-2">2. Upload ROM</h4>
                   <p className="text-sm text-muted-foreground">
-                    Form data automatically saves to our Google Sheets database
+                    Upload your ROM file directly with metadata through our upload system
                   </p>
                 </div>
                 
@@ -204,7 +215,7 @@ export default function SubmitRom() {
                   <ul className="space-y-2 text-sm text-muted-foreground">
                     <li>• ROM must be for Nothing Phone 2a/2a Plus only</li>
                     <li>• Include working boot.img and system.img</li>
-                    <li>• Provide SHA256 checksums for verification</li>
+                    <li>• Ensure ROM integrity and quality</li>
                     <li>• Test basic functionality (calls, SMS, WiFi, etc.)</li>
                     <li>• Include installation instructions</li>
                   </ul>
